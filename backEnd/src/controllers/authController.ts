@@ -103,7 +103,7 @@ export const getMe = async (req:Request, res:Response) => {
             return res.status(404).json({errro: "user not found"})
         }
 
-        res.status(201).json({
+        res.status(200).json({
             id: user.id,
             fullName: user.fullName,
             username: user.username,
