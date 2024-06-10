@@ -1,16 +1,24 @@
-const Conversation = () => {
+import useConversation, { ConversationType } from "../../zustand/useConversation"
+
+const Conversation = ({ conversation, emoji } : {conversation: ConversationType, emoji:string}) => {
+  const { setSelectedConversation, selectedConversation } = useConversation();
+  const isSelected = selectedConversation?.id === conversation.id
+
+  const isOnline = false;
   return (
     <>
-    <div className="flex gap-2 rounded items-center hover:bg-sky-500 p-2 cursor-pointer">
-      <div className="avatar online">
+    <div className={`flex gap-2 rounded items-center hover:bg-sky-500 p-2 cursor-pointer ${isSelected ? 'bg-sky-500' : ''}`}
+      onClick={() => setSelectedConversation(conversation)}
+    >
+      <div className={`avatar ${isOnline ? 'online' : ''}`}>
         <div className="rounded-full h-10 w-10 overflow-hidden">
-          <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="" />
+          <img src={conversation.profilePic} alt="user avatar" />
         </div>
       </div>
       <div className="flex flex-col flex-1">
         <div className="flex gap-3 justify-between">
-          <p className="text-gray-200 font-bold">John Doe</p>
-          <span className="text-xl">🎃</span>
+          <p className="text-gray-200 font-bold">{conversation.fullName}</p>
+          <span className="text-xl">{emoji}</span>
         </div>
       </div>
     </div>
